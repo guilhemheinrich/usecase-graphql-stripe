@@ -1,0 +1,19 @@
+{
+  "name": "core",
+  "private": true,
+  "scripts": {
+    "compile": "tsc -b -w -i",
+    "eslint": "eslint src/**/**.{ts,tsx}",
+    "eslint:fix": "eslint src/**/**.{ts,tsx} --fix"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.2"
+  }
+}
