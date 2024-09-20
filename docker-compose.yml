@@ -9,7 +9,7 @@ services:
   graphql-engine:
     image: hasura/graphql-engine:v2.42.0
     ports:
-      - "8080:8080"
+      - '8080:8080'
     restart: always
     environment:
       ## postgres database to store Hasura metadata
@@ -17,9 +17,9 @@ services:
       ## this env var can be used to add the above postgres database to Hasura as a data source. this can be removed/updated based on your needs
       PG_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
       ## enable the console served by server
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true' # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
-      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_DEV_MODE: 'true'
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
       # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
@@ -37,13 +37,28 @@ services:
     environment:
       QUARKUS_LOG_LEVEL: ERROR # FATAL, ERROR, WARN, INFO, DEBUG, TRACE
       ## https://quarkus.io/guides/opentelemetry#configuration-reference
-      QUARKUS_OPENTELEMETRY_ENABLED: "false"
+      QUARKUS_OPENTELEMETRY_ENABLED: 'false'
       ## QUARKUS_OPENTELEMETRY_TRACER_EXPORTER_OTLP_ENDPOINT: http://jaeger:4317
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/api/v1/athena/health"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:8081/api/v1/athena/health']
       interval: 5s
       timeout: 10s
       retries: 5
       start_period: 5s
+  express-server:
+    # Nom du build: référence au Dockerfile dans le dossier apps/express-server
+    build:
+      context: ./apps/express-server
+    # Recrée le conteneur quand les fichiers changent
+    volumes:
+      - ./apps/express-server:/app
+    # Utiliser le port 3000 en local et à l'intérieur du conteneur
+    ports:
+      - '3000:3000'
+    # Variables d'environnement si nécessaire
+    environment:
+      NODE_ENV: production
+    # Démarrer le serveur
+    command: sh -c "npm install && npm start"
 volumes:
   db_data:
