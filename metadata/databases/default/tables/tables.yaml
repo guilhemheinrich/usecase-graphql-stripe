@@ -1,0 +1,4 @@
+- "!include public_beewyse_artist.yaml"
+- "!include public_beewyse_artist_band.yaml"
+- "!include public_beewyse_band.yaml"
+- "!include public_beewyse_ong.yaml"
