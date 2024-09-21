@@ -1,0 +1,3 @@
+hasura.exe
+**/node_modules
+**/dist
