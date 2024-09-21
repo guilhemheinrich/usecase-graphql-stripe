@@ -6,12 +6,12 @@
     "eslint": "eslint src/**/**.{ts,tsx}",
     "eslint:fix": "eslint src/**/**.{ts,tsx} --fix"
   },
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "nx": "19.2.2"
   },
   "devDependencies": {
     "typescript": "^5.6.2"

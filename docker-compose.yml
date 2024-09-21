@@ -48,17 +48,21 @@ services:
   express-server:
     # Nom du build: référence au Dockerfile dans le dossier apps/express-server
     build:
-      context: ./apps/express-server
+      context: .
+      dockerfile: ./apps/express-server/Dockerfile
     # Recrée le conteneur quand les fichiers changent
     volumes:
-      - ./apps/express-server:/app
+      - .:/app
     # Utiliser le port 3000 en local et à l'intérieur du conteneur
     ports:
-      - '3000:3000'
+      - '${EXPRESS_PORT}:${EXPRESS_PORT}'
     # Variables d'environnement si nécessaire
     environment:
-      NODE_ENV: production
+      EXPRESS_PORT: ${EXPRESS_PORT}
     # Démarrer le serveur
-    command: sh -c "npm install && npm start"
+    command: sh -c "npx nx run @org/express-server:start"
+    # command: sh -c "node apps/express-server/dist/index.js"
+    # command: sh -c "sleep infinity"
+    # command: sh -c "tree -L 3 -I 'metadata|migrations|seeds' ./node_modules"
 volumes:
   db_data:
