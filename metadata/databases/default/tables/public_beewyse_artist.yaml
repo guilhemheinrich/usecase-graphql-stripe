@@ -1,3 +1,27 @@
 table:
   name: beewyse_artist
   schema: public
+event_triggers:
+  - name: artist_created
+    definition:
+      enable_manual: true
+      insert:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://192.168.1.26:3050/trigger/stripe_init
+    request_transform:
+      body:
+        action: transform
+        template: |-
+          {
+            "table": {
+              "name": {{$body.table.name}},
+              "schema": {{$body.table.schema}}
+            },
+            "stripe_customer_column": "stripe_customer_id"
+          }
+      template_engine: Kriti
+      version: 2

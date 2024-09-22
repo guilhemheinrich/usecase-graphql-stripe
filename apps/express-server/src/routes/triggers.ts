@@ -1,10 +1,11 @@
 import { Router, Request, Response } from 'express';
-
+import { BeewyseArtist } from '@org/typeorm-entity';
 export const router = Router();
 
 // Exemples de routes trigger
 router.post('/stripe_customer_init', (req: Request, res: Response) => {
   console.log('received body', req.body);
+
   // Retieve row
   // Stripe init
   res.send(`Initialization: ${JSON.stringify(req.body)}`);
