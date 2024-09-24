@@ -15,7 +15,10 @@ COPY ./tsconfig.json ./package.json ./pnpm-lock.yaml ./pnpm-workspace.yaml ./
 # Copy package.json and tsconfig.json and tsup.config.ts from packages, keeping the structure
 #! Preservation de la structure : Dans cet exemple, si tu as plusieurs packages, il se peut que cela ne préserve pas la structure de répertoire de manière optimale, car tous les fichiers seront copiés à la racine de /app/server. Pour garder la structure de répertoire, il faut faire plusieurs COPY.
 COPY ./packages/configuration/package.json ./packages/configuration/tsconfig.json ./packages/configuration/tsup.config.ts ./packages/configuration/
+COPY ./packages/supabase-types/package.json ./packages/supabase-types/tsconfig.json ./packages/supabase-types/tsup.config.ts ./packages/supabase-types/
 COPY ./packages/typescript-config ./packages/typescript-config/
+
+# COPY ./packages/ ./packages/
 
 # Copier également les fichiers package.json de l'application express-server
 COPY ./apps/express-server/package.json ./apps/express-server/tsconfig.json ./apps/express-server/tsup.config.ts ./apps/express-server/
@@ -40,6 +43,7 @@ COPY . .
 # Compiler le projet TypeScript pour l'application express-server
 RUN npx nx run configuration:build
 RUN npx nx run @org/express-server:build
+RUN npx nx run @org/supabase-types:build
 EXPOSE ${EXPRESS_PORT}
 
 # Démarrer l'application
