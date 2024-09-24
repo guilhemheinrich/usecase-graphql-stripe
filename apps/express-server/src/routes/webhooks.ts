@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 
-export const router = Router();
+export const router: any = Router();
 
 // Exemples de routes webhook
 router.post('/example', (req: Request, res: Response) => {

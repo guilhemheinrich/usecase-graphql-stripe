@@ -1,6 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { BeewyseArtist } from '@org/typeorm-entity';
-export const router = Router();
+export const router: any = Router();
 
 // Exemples de routes trigger
 router.post('/stripe_customer_init', (req: Request, res: Response) => {

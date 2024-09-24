@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 
-export const router = Router();
+//! Some messy mess is at work here
+export const router: any = Router();
 
 // Exemples de routes pour actions API
 router.get('/status', (req: Request, res: Response) => {
