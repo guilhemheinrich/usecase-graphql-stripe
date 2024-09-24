@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "compile": "tsc -b -w -i",
+    "build": "npx nx run-many build",
     "eslint": "eslint src/**/**.{ts,tsx}",
     "eslint:fix": "eslint src/**/**.{ts,tsx} --fix"
   },
@@ -14,6 +15,8 @@
     "nx": "19.2.2"
   },
   "devDependencies": {
+    "@types/node": "^22.5.5",
+    "supabase": "^1.192.5",
     "typescript": "^5.6.2"
   }
 }

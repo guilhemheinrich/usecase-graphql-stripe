@@ -1,0 +1,23 @@
+{
+    "name": "@org/supabase-types",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "devDependencies": {
+        "supabase": ">=1.8.1",
+        "tsup": "^8.0.2"
+    },
+    "scripts": {
+        "dev": "tsup --watch",
+        "build": "tsup",
+        "build:watch": "tsc -w",
+        "generate:local": "npx supabase gen types typescript --local --schema public > src/supabase.ts"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@supabase/supabase-js": "^2.39.7"
+    }
+}

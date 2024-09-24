@@ -7,15 +7,28 @@ set
     search_path to extensions,
     public;
 
-
 create table if not exists
-    public.beewyse_ong (slug text primary key, stripe_customer_id text null, stripe_account_id text null, constraint slug check (slug ~ '^[a-zA-Z0-9_-]+$'));
+    public.beewyse_ong (
+        slug text primary key,
+        email text not null,
+        stripe_customer_id text null,
+        stripe_account_id text null,
+        constraint slug check (slug ~ '^[a-zA-Z0-9_-]+$')
+    );
 
 create table if not exists
     public.beewyse_band (slug text primary key, constraint slug check (slug ~ '^[a-zA-Z0-9_-]+$'));
 
 create table if not exists
-    public.beewyse_artist (_id uuid not null default uuid_generate_v4 (), stripe_customer_id text null, stripe_account_id text null, constraint pk_artist primary key (_id));
+    public.beewyse_artist (
+        _id uuid not null default uuid_generate_v4 (),
+        email text not null,
+        firstname text not null,
+        lastname text not null,
+        stripe_customer_id text null,
+        stripe_account_id text null,
+        constraint pk_artist primary key (_id)
+    );
 
 create table if not exists
     public.beewyse_artist_band (
