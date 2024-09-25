@@ -49,3 +49,20 @@ event_triggers:
           }
       template_engine: Kriti
       version: 2
+  - name: test
+    definition:
+      enable_manual: true
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://{{EXPRESS_SERVER}}/debug
+    request_transform:
+      method: GET
+      query_params: {}
+      request_headers:
+        add_headers: {}
+        remove_headers:
+          - content-type
+      template_engine: Kriti
+      version: 2

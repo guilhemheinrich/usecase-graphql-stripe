@@ -2,7 +2,8 @@ import { Router } from 'express';
 
 import { stripeInitController } from '../controllers/stripeInitController';
 
-export const router = Router();
+//! Some messy mess is at work here, use any to shut compilation issue :/
+export const router: any = Router();
 
 router.post('/stripe_customer_init', stripeInitController.initCustomerId);
 
