@@ -1,3 +1,11 @@
 table:
   name: beewyse_band
   schema: public
+array_relationships:
+  - name: beewyse_artist_bands
+    using:
+      foreign_key_constraint_on:
+        column: band_id
+        table:
+          name: beewyse_artist_band
+          schema: public

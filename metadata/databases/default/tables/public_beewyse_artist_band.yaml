@@ -1,3 +1,10 @@
 table:
   name: beewyse_artist_band
   schema: public
+object_relationships:
+  - name: beewyse_artist
+    using:
+      foreign_key_constraint_on: artist_id
+  - name: beewyse_band
+    using:
+      foreign_key_constraint_on: band_id

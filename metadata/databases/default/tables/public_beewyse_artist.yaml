@@ -1,8 +1,16 @@
 table:
   name: beewyse_artist
   schema: public
+array_relationships:
+  - name: beewyse_artist_bands
+    using:
+      foreign_key_constraint_on:
+        column: artist_id
+        table:
+          name: beewyse_artist_band
+          schema: public
 event_triggers:
-  - name: artist_created
+  - name: stripe_account_artist
     definition:
       enable_manual: true
       insert:
@@ -11,17 +19,33 @@ event_triggers:
       interval_sec: 10
       num_retries: 0
       timeout_sec: 60
-    webhook: http://192.168.1.26:3050/trigger/stripe_init
+    webhook: http://192.168.1.26:3050/trigger/stripe_account_init
+    request_transform:
+      body:
+        action: transform
+        template: "{\r\n  \"data\": {{$body.event.data.new}},\r\n  \"table\": {\r\n    \"name\": {{$body.table.name}},\r\n    \"schema\": {{$body.table.schema}}\r\n  }\r\n}"
+      template_engine: Kriti
+      version: 2
+  - name: stripe_customer_artist
+    definition:
+      enable_manual: true
+      insert:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://192.168.1.26:3050/trigger/stripe_customer_init
     request_transform:
       body:
         action: transform
         template: |-
           {
+            "data": {{$body.event.data.new}},
             "table": {
               "name": {{$body.table.name}},
               "schema": {{$body.table.schema}}
-            },
-            "stripe_customer_column": "stripe_customer_id"
+            }
           }
       template_engine: Kriti
       version: 2

@@ -9,7 +9,9 @@ const ConfigSchema = z.object({
   DB_USERNAME: z.string(),
   DB_PASSWORD: z.string(),
   DB_PORT: z.number().int(),
-  
+  SUPABASE_URL: z.string(),
+  SUPABASE_ANON_KEY: z.string(),
+  SUPABASE_SERVICE_KEY: z.string(),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;
@@ -23,9 +25,10 @@ const rawConfig: Partial<Config> = {
   DB_HOST: process.env.DB_HOST,
   DB_USERNAME: process.env.DB_USERNAME,
   DB_PASSWORD: process.env.DB_PASSWORD,
-  DB_PORT: process.env.DB_PORT
-  ? parseInt(process.env.DB_PORT, 10)
-  : 5432,
+  DB_PORT: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
+  SUPABASE_URL: process.env.SUPABASE_URL,
+  SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+  SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY,
 };
 
 export const Config = ConfigSchema.parse(rawConfig);
