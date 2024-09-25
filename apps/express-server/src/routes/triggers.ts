@@ -65,8 +65,7 @@ router.post(
         ]
       ) {
         console.log('already one');
-        res.send(`Already has a customer_id: ${payload.data}`);
-        return;
+        return res.send(`Already has a customer_id: ${payload.data}`);
       }
       // Stripe init
       // res.send(`Initialization: ${JSON.stringify(req.body)}`);
@@ -114,12 +113,12 @@ router.post(
           type: 'fetch_info_supabase',
           error: customerisable_beewyse_update_error,
         };
-      res.send(
+      return res.send(
         `Completed initialisation: ${customerisable_beewyse_update_data}`
       );
     } catch (error) {
       console.error(error);
-      res.send(error);
+      return res.send(error);
     }
   }
 );
@@ -156,9 +155,7 @@ router.post(
       }
 
       const stripeAccountId = await createStripeAccount({
-        db_id: payload.data[primary_key_mapping[payload.table.name].pk],
         email: payload.data.email,
-        table_name: payload.table.name,
         individual: individual,
       });
 
