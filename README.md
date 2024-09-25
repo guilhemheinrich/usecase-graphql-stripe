@@ -24,3 +24,5 @@ multiple destination for a payment : https://chatgpt.com/share/66ed92b0-15dc-800
 un seul payment vers l'entreprise (BeeWize), puis des transactions qui se déclacnhe par webhook lors d'un événement payment succeed
 
  * gérér les échec de paiements
+
+ doc stripe: https://docs.stripe.com/connect/charges#separate-charges-transfers
